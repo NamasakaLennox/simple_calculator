@@ -25,17 +25,22 @@ int _validity(char *str)
 {
 	int count = 0;
 
-	while (str[count])
+	while (str[count] != '\0')
 	{
 		if (str[count] < 48 || str[count] > 57)
 		{
-			if (str[count] != '*' || str[count] != '/' || str[count] != '+' || str[count] != '-')
-				return (1);
+			if (str[count] == '*' || str[count] == '/' || str[count] == '+' || str[count] == '-')
+			{
+				count++;
+				continue;
+			}
+			return (1);
 		}
 		count++;
 	}
 	return (0);
 }
+
 int _multiply(char *str)
 {
 	int count = 0, setup = 0, num1, num2;
@@ -85,13 +90,53 @@ int _divide(char *str)
 
 int _add(char *str)
 {
+	int count = 0, setup = 0, num1, num2;
+	char num_1[7], num_2[7];
+
+	while (str[count] != '+')
+	{
+		num_1[setup] = str[count];
+		count++;
+		setup++;
+	}
+	num1 = atoi(num_1);
+	setup = 0;
+	count++; /* step to next value from the '+' sign */
+	while (str[count])
+	{
+		num_2[setup] = str[count];
+		count++;
+		setup++;
+	}
+	num2 = atoi(num_2);
+	return (num1 + num2);
 }
 int _subtract(char *str)
 {
+	int count = 0, setup = 0, num1, num2;
+	char num_1[7], num_2[7];
+
+	while (str[count] != '-')
+	{
+		num_1[setup] = str[count];
+		count++;
+		setup++;
+	}
+	num1 = atoi(num_1);
+	setup = 0;
+	count++; /* step to next value from the '-' sign */
+	while (str[count])
+	{
+		num_2[setup] = str[count];
+		count++;
+		setup++;
+	}
+	num2 = atoi(num_2);
+	return (num1 - num2);
 }
 int main(void)
 {
-	int check, value, valid;
+	int check, value;
 	char string[30], *input;
 	char multiply, divide, add, subtract;
 
@@ -101,9 +146,8 @@ int main(void)
 	strcpy(input, string);
 
 	check = _check(input);
-	valid = _validity(input); /* check for invalid character */
 
-	if (valid == 1)
+	if (_validity(input))
 	{
 		printf("Invalid character found, EXITING!!\n");
 		return (1);
