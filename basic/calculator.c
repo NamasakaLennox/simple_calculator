@@ -21,6 +21,38 @@ int _check(char *str)
 	return (0);
 }
 
+int _multiply(char *str)
+{
+	int count = 0, setup = 0, num1, num2;
+	char num_1[7], num_2[7];
+
+	while (str[count] != '*')
+	{
+		num_1[setup] = str[count];
+		count++;
+		setup++;
+	}
+	num1 = atoi(num_1);
+	setup = 0;
+	count++; /* step to next value from the '*' sign */
+	while (str[count])
+	{
+		num_2[setup] = str[count];
+		count++;
+		setup++;
+	}
+	num2 = atoi(num_2);
+	return (num1 * num2);
+}
+int _divide(char *str)
+{
+}
+int _add(char *str)
+{
+}
+int _subtract(char *str)
+{
+}
 int main(void)
 {
 	int check, value;
@@ -51,6 +83,7 @@ int main(void)
 		value = _add(input);
 	if( check == 4)
 		value = _subtract(input);
+	printf("The answer is: %d\n", value);
 
 	return (0);
 }
