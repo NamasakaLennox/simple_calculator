@@ -46,7 +46,28 @@ int _multiply(char *str)
 }
 int _divide(char *str)
 {
+	int count = 0, setup = 0, num1, num2;
+	char num_1[7], num_2[7];
+
+	while (str[count] != '/')
+	{
+		num_1[setup] = str[count];
+		count++;
+		setup++;
+	}
+	num1 = atoi(num_1);
+	setup = 0;
+	count++; /* step to next value from the '/' sign */
+	while (str[count])
+	{
+		num_2[setup] = str[count];
+		count++;
+		setup++;
+	}
+	num2 = atoi(num_2);
+	return (num1 / num2);
 }
+
 int _add(char *str)
 {
 }
