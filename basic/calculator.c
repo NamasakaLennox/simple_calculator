@@ -21,6 +21,21 @@ int _check(char *str)
 	return (0);
 }
 
+int _validity(char *str)
+{
+	int count = 0;
+
+	while (str[count])
+	{
+		if (str[count] < 48 || str[count] > 57)
+		{
+			if (str[count] != '*' || str[count] != '/' || str[count] != '+' || str[count] != '-')
+				return (1);
+		}
+		count++;
+	}
+	return (0);
+}
 int _multiply(char *str)
 {
 	int count = 0, setup = 0, num1, num2;
@@ -76,7 +91,7 @@ int _subtract(char *str)
 }
 int main(void)
 {
-	int check, value;
+	int check, value, valid;
 	char string[30], *input;
 	char multiply, divide, add, subtract;
 
@@ -84,18 +99,21 @@ int main(void)
 	scanf("%s", string);
 	input = malloc(sizeof(char) * (strlen(string) + 1));
 	strcpy(input, string);
+
 	check = _check(input);
+	valid = _validity(input); /* check for invalid character */
+
+	if (valid == 1)
+	{
+		printf("Invalid character found, EXITING!!\n");
+		return (1);
+	}
 	if (check == 0)
 	{
 		printf("No Operation defined\n");
 		return (1);
 	}
-	/*
-	if (check == 5)
-	{
-		printf("Invalid character found, EXITING!!\n");
-	}
-	*/
+
 	if (check == 1)
 		value = _multiply(input);
 	if (check == 2)
